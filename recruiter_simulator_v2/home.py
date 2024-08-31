@@ -11,8 +11,8 @@ from langchain_community.callbacks import get_openai_callback
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage
 from audio_recorder_streamlit import audio_recorder
-from pydub import AudioSegment
 import io 
+from pydub import AudioSegment
 from langchain_community.document_loaders import CSVLoader
 from langchain_community.vectorstores import FAISS
 from langchain_openai import OpenAIEmbeddings
@@ -243,7 +243,7 @@ def main():
         with col_recruiter:
             st.header("Recruiter")
             image_path1 = os.path.abspath(os.path.join("data", "recruiter.jpeg"))
-            #st.image(image_path1)
+            st.image(image_path1)
             #st.image("data/recruiter.jpeg")
             if st.session_state.option=="text":
                 st.write(response.content)
@@ -331,7 +331,7 @@ def main():
                         "language":[st.session_state.language],
                         "job_offer":[st.session_state.job_offer]
                     }
-                #st.write(data)
+                st.write(data)
                 data_df=pd.DataFrame(data)
                 data_df_updated=pd.concat([df,data_df])
                 conn.update(worksheet="entretiens",data=data_df_updated)
@@ -353,8 +353,8 @@ def main():
 
             with col_candidate:
                 st.header("You")
-                image_path2 = os.path.abspath(os.path.join("data", "candidate.jpg"))
-                #st.image(image_path2)
+                image_path = os.path.abspath(os.path.join("data", "candidate.jpg"))
+                st.image(image_path)
                 #st.image("data/candidate.jpg")
                 if st.session_state.option=='text':
                     prompt=st.chat_input("answer",on_submit=set_state_plus,
@@ -384,12 +384,11 @@ def main():
 
                     #audio_bytes=audio_recorder(energy_threshold=0.01, pause_threshold=2,key=str(indicator))
                     # Assign a unique key to each audio_recorder widget
-                    audio_rec = audio_recorder(pause_threshold=2.0, sample_rate=41_000, key="unique_key_1")
+                    audio_data = audio_recorder(pause_threshold=3.0, sample_rate=48_000, icon_size="2x")
 
-                    if audio_rec:
-                        #st.audio(audio_rec, format="audio/wav")
-                        #st.audio(audio_bytes)
-                        prompt=stxt_new(openai_api_key,audio_rec)
+                    if audio_data:
+                        #st.audio(audio_data, format="audio/wav")
+                        prompt=stxt_new(openai_api_key,audio_data)
                         last_prompt = None
                         if st.session_state.messages:
                             last_prompt = st.session_state.messages[-2].content
@@ -400,7 +399,7 @@ def main():
                     #if audio_bytes:
                         if prompt != last_prompt:
                         
-                        #st.write(prompt)
+                            #st.write(prompt)
                             st.session_state.messages.append(HumanMessage(content=prompt))
                         #st.write(st.session_state.messages)
                         

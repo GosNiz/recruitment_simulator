@@ -71,7 +71,8 @@ numba==0.60.0
 numpy==1.26.4
 oauthlib==3.2.2
 openai==1.43.0
-openai-whisper==20231117
+# Pin a compatible version of openai-whisper
+openai-whisper==20230314
 orjson==3.10.7
 packaging==24.1
 pandas==1.5.3
@@ -117,7 +118,7 @@ tiktoken==0.7.0
 tokenizers==0.19.1
 toml==0.10.2
 toolz==0.12.1
-torch==2.4.0
+torch==2.3.1
 tornado==6.4.1
 tqdm==4.66.5
 transformers==4.42.4

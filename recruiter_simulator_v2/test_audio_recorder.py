@@ -1,15 +1,12 @@
+from audio_recorder_streamlit import audio_recorder
 import streamlit as st
-from audiorecorder import audiorecorder
 
-st.title("Audio Recorder")
-audio = audiorecorder(start_prompt="Start recording", stop_prompt="Stop recording", pause_prompt="", show_visualizer=True, key=None)
-st.write(audio)
-if audio:
-    # To play audio in frontend:
-    st.audio(audio.export().read())  
+def record_audio():
+    # Record audio
+    audio_data = audio_recorder(pause_threshold=3.0, sample_rate=48_000, icon_size="2x")
+    if audio_data:
+        st.audio(audio_data, format="audio/wav")
+    return audio_data
 
-    # To save audio to a file, use pydub export method:
-    #audio.export("audio.wav", format="wav")
-
-    # To get audio properties, use pydub AudioSegment properties:
-    #st.write(f"Frame rate: {audio.frame_rate}, Frame width: {audio.frame_width}, Duration: {audio.duration_seconds} seconds")
+# Record audio
+audio_data = record_audio()

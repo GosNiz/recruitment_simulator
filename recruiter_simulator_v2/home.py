@@ -243,7 +243,7 @@ def main():
         with col_recruiter:
             st.header("Recruiter")
             image_path1 = os.path.abspath(os.path.join("data", "recruiter.jpeg"))
-            st.image(image_path1)
+            #st.image(image_path1)
             #st.image("data/recruiter.jpeg")
             if st.session_state.option=="text":
                 st.write(response.content)
@@ -353,8 +353,8 @@ def main():
 
             with col_candidate:
                 st.header("You")
-                image_path = os.path.abspath(os.path.join("data", "candidate.jpg"))
-                st.image(image_path)
+                image_path2 = os.path.abspath(os.path.join("data", "candidate.jpg"))
+                #st.image(image_path2)
                 #st.image("data/candidate.jpg")
                 if st.session_state.option=='text':
                     prompt=st.chat_input("answer",on_submit=set_state_plus,

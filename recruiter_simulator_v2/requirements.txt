@@ -117,4 +117,5 @@ validators==0.33.0
 watchdog==4.0.2
 whisper==1.1.10
 yarl==1.9.6
-ffmpeg==1.4
+pydub
+ffmpeg-python

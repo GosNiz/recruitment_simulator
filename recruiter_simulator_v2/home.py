@@ -19,7 +19,6 @@ from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from data_feed import check_vdb_exists
 import os
-import ffmpeg
 
 
 def set_state_initial(option,full_name,job_title,job_details,academic,seniority,type_interview,language,job_offer):

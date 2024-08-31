@@ -3,7 +3,6 @@ import streamlit as st
 import pandas as pd
 from streamlit_gsheets import GSheetsConnection
 from datetime import datetime
-#from speech_to_text_4 import stxt_new
 from text_to_speech import tts
 import tempfile
 import speech_recognition as sr
@@ -19,8 +18,7 @@ from langchain_openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from data_feed import check_vdb_exists
 import os
-import whisper
-import io
+
 
 def set_state_initial(option,full_name,job_title,job_details,academic,seniority,type_interview,language,job_offer):
     st.cache_data.clear()
@@ -144,7 +142,8 @@ def evaluate_sentence2(job_offer,answer,language,question):
         return response.content
 
 
-def stxt_new(api_key, audio_bytes):
+def stxt_new(key, audio_bytes):
+
     if audio_bytes:
         try:
             with st.spinner("Thinking..."):
@@ -154,15 +153,23 @@ def stxt_new(api_key, audio_bytes):
                     audio.export(temp_audio_file.name, format="wav")
                     temp_audio_filename = temp_audio_file.name
 
-                # Load the Whisper model
-                model = whisper.load_model("small")  # Load the small Whisper model
+                # Use the audio file as the audio source
+                r = sr.Recognizer()
+                with sr.AudioFile(temp_audio_filename) as source:
+                    audio = r.record(source)  # read the entire audio file
 
-                # Transcribe the audio file
-                result = model.transcribe(temp_audio_filename)
-
-                return result["text"]
+                # Recognize speech using Whisper API
+                try:
+                    response = r.recognize_whisper_api(audio, api_key=key)
+                    return response
+                except sr.RequestError as e:
+                    response = "Could not request results from Whisper API"
+                    st.markdown(f"<font color='red'>{response}</font>", unsafe_allow_html=True)
+                except sr.UnknownValueError:
+                    response = "Whisper API could not understand the audio"
+                    st.markdown(f"<font color='red'>{response}</font>", unsafe_allow_html=True)
         except Exception as e:
-            st.markdown(f"<font color='red'>An error occurred: {str(e)}. The recording may be too short. Please try again.</font>", unsafe_allow_html=True)
+            st.markdown(f"<font color='red'>An error occurred: {str(e)}. The recording may be too short. We are not able to transcribe correctly your voice. Please try again</font>", unsafe_allow_html=True)
     else:
         return "No audio provided or an error occurred."
     

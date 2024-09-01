@@ -1,3 +1,0 @@
-ffmpeg
-default-jre-headless
-ffprobe

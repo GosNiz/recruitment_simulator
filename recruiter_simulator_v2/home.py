@@ -243,7 +243,7 @@ def main():
             st.header("Recruiter")
             #image_path1 = os.path.abspath(os.path.join("data", "recruiter.jpeg"))
             #st.image(image_path1)
-            st.image("gosniz/recruitment_simulator/main/recruiter_simulator_v2/data/recruiter.jpeg")
+            st.image("recruiter_simulator_v2/data/recruiter.jpeg")
             if st.session_state.option=="text":
                 st.write(response.content)
                 #st.write(st.session_state.cost)
@@ -354,7 +354,7 @@ def main():
                 st.header("You")
                 #image_path = os.path.abspath(os.path.join("data", "candidate.jpg"))
                 #st.image(image_path)
-                st.image("gosniz/recruitment_simulator/main/recruiter_simulator_v2/data/candidate.jpg")
+                st.image("recruiter_simulator_v2/data/candidate.jpg")
                 if st.session_state.option=='text':
                     prompt=st.chat_input("answer",on_submit=set_state_plus,
                                          args=[st.session_state.option,

@@ -177,7 +177,7 @@ def main():
     openai_api_key = st.secrets["openai"]
     #st.cache_resource.clear()
 
-    chat=ChatOpenAI(model_name='gpt-4-turbo',temperature=0.4,openai_api_key=openai_api_key)
+    chat=ChatOpenAI(model_name='gpt-4o',temperature=0.4,openai_api_key=openai_api_key)
 
     #col_recruiter, col_candidate = st.columns(2)
 

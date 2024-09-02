@@ -14,7 +14,7 @@ from data_feed import check_vdb_exists
 
 # Setup for OpenAI
 openai_api_key = st.secrets["openai"]
-chat = ChatOpenAI(model_name='gpt-4-turbo', temperature=0, openai_api_key=openai_api_key)
+chat = ChatOpenAI(model_name='gpt-4o-mini', temperature=0, openai_api_key=openai_api_key)
 
 # Global variable for the FAISS vectorstore
 

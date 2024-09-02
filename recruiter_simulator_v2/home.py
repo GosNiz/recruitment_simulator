@@ -330,7 +330,7 @@ def main():
                         "language":[st.session_state.language],
                         "job_offer":[st.session_state.job_offer]
                     }
-                st.write(data)
+                #st.write(data)
                 data_df=pd.DataFrame(data)
                 data_df_updated=pd.concat([df,data_df])
                 conn.update(worksheet="entretiens",data=data_df_updated)
